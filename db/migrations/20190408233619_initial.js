@@ -29,7 +29,7 @@ exports.up = function(knex, Promise) {
     
     .createTable('shares', function (table) {
         table.bigIncrements('id').primary();
-        table.text('name', 20).notNullable();
+        table.float('price').notNullable();
         table.bigInteger('companyID').notNullable();
         table.bigInteger('investorID').notNullable();
         table.timestamps(false, true);

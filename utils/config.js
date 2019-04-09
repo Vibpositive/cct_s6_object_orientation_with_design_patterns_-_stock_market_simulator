@@ -19,15 +19,6 @@ dotenv.config({
 
 module.exports.OODWDP_DATABASE = process.env.OODWDP_DATABASE;
 module.exports.OODWDP_DATABASE_ROOTPASSWORD = process.env.OODWDP_DATABASE_ROOTPASSWORD;
-module.exports.OODWDP_MARIADB_DATA = process.env.OODWDP_MARIADB_DATA;
-module.exports.OODWDP_MARIADB_DUMP = process.env.OODWDP_MARIADB_DUMP;
-module.exports.OODWDP_MARIADB_HOST = process.env.OODWDP_MARIADB_HOST;
 module.exports.OODWDP_DATABASE_USER = process.env.OODWDP_DATABASE_USER;
-module.exports.OODWDP_MARIADB_PORT = process.env.OODWDP_MARIADB_PORT;
-module.exports.OODWDP_MYSQL_DATA = process.env.OODWDP_MYSQL_DATA;
-module.exports.OODWDP_MYSQL_DUMP = process.env.OODWDP_MYSQL_DUMP;
-module.exports.OODWDP_MYSQL_HOST = process.env.OODWDP_MYSQL_HOST;
-module.exports.OODWDP_MYSQL_PORT = process.env.OODWDP_MYSQL_PORT;
-module.exports.OODWDP_WEB_PASSWORD = process.env.OODWDP_WEB_PASSWORD;
-module.exports.OODWDP_WEB_PORT = process.env.OODWDP_WEB_PORT;
-module.exports.OODWDP_WEB_MAIN_VOLUME = process.env.OODWDP_WEB_MAIN_VOLUME;
+module.exports.OODWDP_POSTGRES_HOST = process.env.OODWDP_POSTGRES_HOST;
+module.exports.OODWDP_POSTGRES_PORT = process.env.OODWDP_POSTGRES_PORT;
