@@ -1,4 +1,4 @@
-import { Company, Investor, Share } from './connectors';
+import { Company, Investor, Simulation } from './connectors';
 
 const resolveFunctions = {
   RootQuery: {
@@ -18,6 +18,9 @@ const resolveFunctions = {
     investors(_, { }){
       return Investor.findAll();
     },
+    simulations(_, { }){
+      return Simulation.findAll();
+    },
     /*shares(_, { }){
       return Share.findAll();
     },*/
@@ -36,6 +39,19 @@ const resolveFunctions = {
       return company.getShares();
     },
   },
+  Simulation: {
+    investors(simulation){
+      return simulation.getInvestors();
+    },
+    companies(simulation){
+      return simulation.getCompanies();
+    },
+  },
+  Investor: {
+    simulation(investor){
+      return investor.getSimulation();
+    }
+  }
   // Post: {
   //   author(post){
   //     return post.getAuthor();

@@ -19,11 +19,18 @@ type Investor {
   name: String
   budget: Float
   sharesBought: Int # the list of Posts by this author
+  simulation: Simulation
 }
 
 type Share {
   id: Int! # the ! means that every author object _must_ have an id
   price: Float
+}
+type Simulation {
+  id: Int! # the ! means that every author object _must_ have an id
+  name: String
+  investors: [Investor]
+  companies: [Company]
 }
 
 # type Post {
@@ -41,6 +48,7 @@ type RootQuery {
   # authors: [Author]
   companies : [Company]
   investors : [Investor]
+  simulations: [Simulation]
 #  shares : [Share]
 }
 
