@@ -12,6 +12,12 @@ type Company {
   numShares: Int
   sharesSold: Int # the list of Posts by this author
   shares: [Share]
+  simulation: SimpleSimulation
+}
+
+type SimpleSimulation{
+  id: Int! # the ! means that every author object _must_ have an id
+  name: String
 }
 
 type Investor {
@@ -19,13 +25,14 @@ type Investor {
   name: String
   budget: Float
   sharesBought: Int # the list of Posts by this author
-  simulation: Simulation
+  simulation: SimpleSimulation
 }
 
 type Share {
   id: Int! # the ! means that every author object _must_ have an id
   price: Float
 }
+
 type Simulation {
   id: Int! # the ! means that every author object _must_ have an id
   name: String

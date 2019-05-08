@@ -38,6 +38,9 @@ const resolveFunctions = {
     shares(company){
       return company.getShares();
     },
+    simulation(company){
+      return company.getSimulation();
+    },
   },
   Simulation: {
     investors(simulation){
