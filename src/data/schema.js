@@ -35,14 +35,17 @@ input CompanyInput {
   #shares: [Share]
 }
 
-type ShareInput {
-  id: Int! # the ! means that every author object _must_ have an id
-  price: Float
+input ShareInput {
+    sharesTraded: Int
+    companyId: Int
+    investorId: Int
 }
 
 type Share {
   id: Int! # the ! means that every author object _must_ have an id
-  price: Float
+  sharesTraded: Int
+  companyId: Int
+  investorId: Int
 }
 
 type Simulation {
@@ -77,6 +80,7 @@ type RootMutation {
     name: String!
     investors: [InvestorInput]
     companies: [CompanyInput]
+    shares: [ShareInput]
   ): Simulation
 }
 

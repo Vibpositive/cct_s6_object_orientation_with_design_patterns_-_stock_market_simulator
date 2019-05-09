@@ -1,4 +1,4 @@
-import { Company, Investor, Simulation } from './connectors';
+import { Company, Investor, Simulation, Share } from './connectors';
 
 const resolveFunctions = {
     RootQuery: {
@@ -49,9 +49,16 @@ const resolveFunctions = {
                     company.simulationId = _simulation.dataValues.id;
                     return company;
                 });
-                console.log(_companies);
 
                 return Company.bulkCreate(_companies);
+            })
+            .then(() =>{
+                /*let _shares =  args.companies.map(function (share) {
+                    share.simulationId = _simulation.dataValues.id;
+                    return share;
+                });*/
+
+                return Share.bulkCreate(args.shares);
             })
             .then(() => {
                 return _simulation;

@@ -46,6 +46,7 @@ const ShareModel = db.define('share', {
     type: Sequelize.INTEGER,
   },
 });
+ShareModel.removeAttribute('id');
 
 CompanyModel.hasMany(ShareModel);
 
@@ -69,7 +70,8 @@ const Company = db.models.company;
 
 const Investor = db.models.investor;
 const Simulation = db.models.simulation;
-ShareModel.removeAttribute('id');
+const Share = db.models.share;
+
 db.sync();
 
-export { Company, Investor,  Simulation};
+export { Company, Investor,  Simulation, Share };
