@@ -12,7 +12,7 @@ type Company {
   numShares: Int
   sharesSold: Int
   simulation: Simulation
-  # shares: [Share]
+  price: Float
 }
 
 type Investor {
@@ -35,6 +35,7 @@ input CompanyInput {
     name: String!
     numShares: Int!
     sharesSold: Int!
+    price: Float!
 }
 
 input ShareInput {
