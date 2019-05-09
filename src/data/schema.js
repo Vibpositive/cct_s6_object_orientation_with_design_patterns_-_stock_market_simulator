@@ -11,8 +11,8 @@ type Company {
   name: String
   numShares: Int
   sharesSold: Int # the list of Posts by this author
-  shares: [Share]
   simulation: Simulation
+  # shares: [Share]
 }
 
 type Investor {
@@ -21,6 +21,7 @@ type Investor {
   budget: Float
   sharesBought: Int # the list of Posts by this author
   simulation: Simulation
+  # shares: [Share]
 }
 
 input InvestorInput {
@@ -32,7 +33,6 @@ input CompanyInput {
   name: String
   numShares: Int
   sharesSold: Int # the list of Posts by this author
-  #shares: [Share]
 }
 
 input ShareInput {
@@ -42,7 +42,7 @@ input ShareInput {
 }
 
 type Share {
-  id: Int! # the ! means that every author object _must_ have an id
+  # id: Int! # the ! means that every author object _must_ have an id
   sharesTraded: Int
   companyId: Int
   investorId: Int
@@ -53,24 +53,16 @@ type Simulation {
   name: String
   investors: [Investor]
   companies: [Company]
+  shares: [Share]
 }
-
-# type Post {
-#   id: Int!
-#   tags: [String]
-#   title: String
-#   text: String
-#   views: Int
-#   author: Author
-# }
 
 # the schema allows the following two queries:
 type RootQuery {
   # author(firstName: String, lastName: String): Author
   # authors: [Author]
-  companies : [Company]
-  investors : [Investor]
-  simulations: [Simulation]
+  # companies : [Company]
+  # investors : [Investor]
+  simulations(id: Int!): [Simulation]
 #  shares : [Share]
 }
 

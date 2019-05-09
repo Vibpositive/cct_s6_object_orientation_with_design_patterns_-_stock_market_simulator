@@ -59,6 +59,9 @@ SimulationModel
 SimulationModel
     // .hasMany(InvestorModel,{'as':'investor'});
     .hasMany(InvestorModel);
+SimulationModel
+    .hasMany(ShareModel);
+
 
 InvestorModel
     .belongsTo(SimulationModel);

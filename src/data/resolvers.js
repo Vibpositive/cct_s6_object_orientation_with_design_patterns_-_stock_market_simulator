@@ -2,36 +2,22 @@ import { Company, Investor, Simulation, Share } from './connectors';
 
 const resolveFunctions = {
     RootQuery: {
-        // author(_, { firstName, lastName }){
-        //   let where = { firstName, lastName};
-        //   if (!lastName){
-        //     where = { firstName };
-        //   }
-        //   if (!firstName){
-        //     where = { lastName };
-        //   }
-        //   return Author.find({ where });
-        // },
-        companies(_, { }){
-            return Company.findAll();
+        simulations(_, { id }){
+            let where = { id };
+            return Simulation.findAll({
+                /**/
+                where: where,
+                /*
+                include: {
+                    Investor
+                }*/
+            });
         },
-        investors(_, { }){
-            return Investor.findAll();
-        },
-        simulations(_, { }){
-            return Simulation.findAll();
-        },
-        /*shares(_, { }){
-          return Share.findAll();
-        },*/
     },
     RootMutation: {
         createSimulation: (root, args) => {
-            console.log("args: ");
-            console.log(args);
             let _simulation;
-            // console.log("Companies: " + companies);
-            // console.log("Investors: " + investors);
+
             return Simulation.create(args)
             .then((simulation) =>{
                 _simulation = simulation;
@@ -53,28 +39,22 @@ const resolveFunctions = {
                 return Company.bulkCreate(_companies);
             })
             .then(() =>{
-                /*let _shares =  args.companies.map(function (share) {
+                let _shares =  args.shares.map(function (share) {
                     share.simulationId = _simulation.dataValues.id;
                     return share;
-                });*/
+                });
 
-                return Share.bulkCreate(args.shares);
+                return Share.bulkCreate(_shares);
             })
             .then(() => {
                 return _simulation;
-            })
+            });
         },
-        /*createPost: (root, { authorId, tags, title, text }) => {
-          return Author.findOne({ where: { id: authorId } }).then( (author) => {
-            console.log('found', author);
-            return author.createPost( { tags: tags.join(','), title, text });
-          });
-        },*/
     },
     Company: {
-        shares(company){
+        /*shares(company){
             return company.getShares();
-        },
+        },*/
         simulation(company){
             return company.getSimulation();
         },
@@ -86,26 +66,18 @@ const resolveFunctions = {
         companies(simulation){
             return simulation.getCompanies();
         },
+        shares(simulation){
+            return simulation.getShares();
+        },
     },
     Investor: {
+        /*shares(investor){
+            return investor.getShares();
+        },*/
         simulation(investor){
             return investor.getSimulation();
         }
     }
-    // Post: {
-    //   author(post){
-    //     return post.getAuthor();
-    //   },
-    //   tags(post){
-    //     return post.tags.split(',');
-    //   },
-    //   views(post){
-    //     return new Promise((resolve, reject) => {
-    //       setTimeout( () => reject('MongoDB timeout when fetching field views (timeout is 500ms)'), 500);
-    //       View.findOne({ postId: post.id }).then( (res) => resolve(res.views) );
-    //     })
-    //   }
-    // }
-}
+};
 
 export default resolveFunctions;
