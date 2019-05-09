@@ -12,12 +12,7 @@ type Company {
   numShares: Int
   sharesSold: Int # the list of Posts by this author
   shares: [Share]
-  simulation: SimpleSimulation
-}
-
-type SimpleSimulation{
-  id: Int! # the ! means that every author object _must_ have an id
-  name: String
+  simulation: Simulation
 }
 
 type Investor {
@@ -25,7 +20,24 @@ type Investor {
   name: String
   budget: Float
   sharesBought: Int # the list of Posts by this author
-  simulation: SimpleSimulation
+  simulation: Simulation
+}
+
+input InvestorInput {
+  name: String
+  budget: Float
+  sharesBought: Int # the list of Posts by this author
+}
+input CompanyInput {
+  name: String
+  numShares: Int
+  sharesSold: Int # the list of Posts by this author
+  #shares: [Share]
+}
+
+type ShareInput {
+  id: Int! # the ! means that every author object _must_ have an id
+  price: Float
 }
 
 type Share {
@@ -60,26 +72,20 @@ type RootQuery {
 }
 
 # this schema allows the following two mutations:
-# type RootMutation {
-  # createAuthor(
-  #   firstName: String!
-  #   lastName: String!
-  # ): Author
-
-  # createPost(
-  #   tags: [String!]!
-  #   title: String!
-  #   text: String!
-  #   authorId: Int!
-  # ): Post
-  # }
+type RootMutation {
+  createSimulation(
+    name: String!
+    investors: [InvestorInput]
+    companies: [CompanyInput]
+  ): Simulation
+}
 
 # we need to tell the server which types represent the root query
 # and root mutation types. We call them RootQuery and RootMutation by convention.
 schema {
   query: RootQuery
+  mutation: RootMutation
 }
 `;
-// # mutation: RootMutation
 
 export default [typeDefinitions];

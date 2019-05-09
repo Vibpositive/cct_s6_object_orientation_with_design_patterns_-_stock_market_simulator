@@ -8,11 +8,12 @@ const db = new Sequelize('stockmarket', null, null, {
   storage: './stockmarket.sqlite'
 });
 
-db.sync();
-
 const CompanyModel = db.define('company', {
   name: {
     type: Sequelize.STRING,
+  },
+  price: {
+    type: Sequelize.DOUBLE,
   },
   numShares: {
     type: Sequelize.INTEGER,
@@ -41,19 +42,22 @@ const InvestorModel = db.define('investor', {
 });
 
 const ShareModel = db.define('share', {
-  price: {
-    type: Sequelize.DOUBLE,
+  sharesTraded: {
+    type: Sequelize.INTEGER,
   },
 });
 
 CompanyModel.hasMany(ShareModel);
+
 ShareModel.belongsTo(CompanyModel);
+ShareModel.belongsTo(InvestorModel);
+SimulationModel
+    // .hasMany(CompanyModel,{'as':'company'});
+    .hasMany(CompanyModel);
 
 SimulationModel
-    .hasMany(CompanyModel,{'as':'company'});
-
-SimulationModel
-    .hasMany(InvestorModel,{'as':'investor'});
+    // .hasMany(InvestorModel,{'as':'investor'});
+    .hasMany(InvestorModel);
 
 InvestorModel
     .belongsTo(SimulationModel);
@@ -62,7 +66,10 @@ CompanyModel
     .belongsTo(SimulationModel);
 
 const Company = db.models.company;
+
 const Investor = db.models.investor;
 const Simulation = db.models.simulation;
+ShareModel.removeAttribute('id');
+db.sync();
 
 export { Company, Investor,  Simulation};
