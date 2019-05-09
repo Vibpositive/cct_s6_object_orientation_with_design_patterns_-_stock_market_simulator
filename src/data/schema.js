@@ -3,14 +3,14 @@ const typeDefinitions = `
 #   id: Int! # the ! means that every author object _must_ have an id
 #   firstName: String
 #   lastName: String
-#   posts: [Post] # the list of Posts by this author
+#   posts: [Post]
 # }
 
 type Company {
   id: Int! # the ! means that every author object _must_ have an id
   name: String
   numShares: Int
-  sharesSold: Int # the list of Posts by this author
+  sharesSold: Int
   simulation: Simulation
   # shares: [Share]
 }
@@ -19,26 +19,28 @@ type Investor {
   id: Int! # the ! means that every author object _must_ have an id
   name: String
   budget: Float
-  sharesBought: Int # the list of Posts by this author
+  sharesBought: Int
   simulation: Simulation
   # shares: [Share]
 }
 
 input InvestorInput {
-  name: String
-  budget: Float
-  sharesBought: Int # the list of Posts by this author
+  id: Int!
+  name: String!
+  budget: Float!
+  sharesBought: Int!
 }
 input CompanyInput {
-  name: String
-  numShares: Int
-  sharesSold: Int # the list of Posts by this author
+    id: Int!
+    name: String!
+    numShares: Int!
+    sharesSold: Int!
 }
 
 input ShareInput {
-    sharesTraded: Int
-    companyId: Int
-    investorId: Int
+    sharesTraded: Int!
+    companyId: Int!
+    investorId: Int!
 }
 
 type Share {
@@ -58,11 +60,10 @@ type Simulation {
 
 # the schema allows the following two queries:
 type RootQuery {
-  # author(firstName: String, lastName: String): Author
-  # authors: [Author]
   # companies : [Company]
   # investors : [Investor]
-  simulations(id: Int!): [Simulation]
+  simulation(id: Int!): Simulation
+  getAllSimulations: [Simulation]
 #  shares : [Share]
 }
 
@@ -74,6 +75,10 @@ type RootMutation {
     companies: [CompanyInput]
     shares: [ShareInput]
   ): Simulation
+  deleteSimulation(
+    id: Int!
+  ): Int
+  deleteAllSimulations: Int
 }
 
 # we need to tell the server which types represent the root query

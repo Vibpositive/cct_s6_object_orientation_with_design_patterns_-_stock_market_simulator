@@ -1,7 +1,7 @@
 import express from 'express';
 import { apolloServer } from 'graphql-tools';
 import Schema from './data/schema';
-import Mocks from './data/mocks';
+// import Mocks from './data/mocks';
 import Resolvers from './data/resolvers';
 
 var graphQLServer = express();
@@ -10,7 +10,6 @@ graphQLServer.use('/', apolloServer({
   pretty: true,
   schema: Schema,
   resolvers: Resolvers,
-  // mocks: Mocks,
 }));
 graphQLServer.listen(process.env.PORT || 4000, () => console.log(
   `GraphQL Server is now running on http://localhost:${process.env.PORT || 4000}/`

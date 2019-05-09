@@ -9,6 +9,11 @@ const db = new Sequelize('stockmarket', null, null, {
 });
 
 const CompanyModel = db.define('company', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: false,
+    primaryKey: true
+  },
   name: {
     type: Sequelize.STRING,
   },
@@ -21,6 +26,11 @@ const CompanyModel = db.define('company', {
   sharesSold: {
     type: Sequelize.INTEGER,
   },
+  simulationId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: false,
+    primaryKey: true
+  },
 });
 
 const SimulationModel = db.define('simulation', {
@@ -30,6 +40,11 @@ const SimulationModel = db.define('simulation', {
 });
 
 const InvestorModel = db.define('investor', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: false,
+    primaryKey: true
+  },
   name: {
     type: Sequelize.STRING,
   },
@@ -39,35 +54,54 @@ const InvestorModel = db.define('investor', {
   sharesBought: {
     type: Sequelize.DOUBLE,
   },
+  simulationId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: false,
+    primaryKey: true
+  },
 });
 
 const ShareModel = db.define('share', {
   sharesTraded: {
     type: Sequelize.INTEGER,
   },
+  companyId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: false,
+    primaryKey: true
+  },
+  investorId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: false,
+    primaryKey: true
+  },
+  simulationId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: false,
+    primaryKey: true
+  },
 });
-ShareModel.removeAttribute('id');
+
+// ShareModel.removeAttribute('id');
+
+// CompanyModel.hasMany(ShareModel);
+
+/*ShareModel.belongsTo(CompanyModel);
+ShareModel.belongsTo(InvestorModel);*/
 
 CompanyModel.hasMany(ShareModel);
+InvestorModel.hasMany(ShareModel);
 
-ShareModel.belongsTo(CompanyModel);
-ShareModel.belongsTo(InvestorModel);
-SimulationModel
-    // .hasMany(CompanyModel,{'as':'company'});
-    .hasMany(CompanyModel);
+// ShareModel.belongsToMany(CompanyModel, {through: 'ShareCompanyInvestor'});
+// ShareModel.belongsToMany(InvestorModel, {through: 'ShareCompanyInvestor'});
 
-SimulationModel
-    // .hasMany(InvestorModel,{'as':'investor'});
-    .hasMany(InvestorModel);
-SimulationModel
-    .hasMany(ShareModel);
+SimulationModel.hasMany(CompanyModel);
+SimulationModel.hasMany(InvestorModel);
+SimulationModel.hasMany(ShareModel);
 
+InvestorModel.belongsTo(SimulationModel);
 
-InvestorModel
-    .belongsTo(SimulationModel);
-
-CompanyModel
-    .belongsTo(SimulationModel);
+CompanyModel.belongsTo(SimulationModel);
 
 const Company = db.models.company;
 

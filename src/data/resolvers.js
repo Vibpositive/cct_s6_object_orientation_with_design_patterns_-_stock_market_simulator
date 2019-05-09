@@ -2,15 +2,15 @@ import { Company, Investor, Simulation, Share } from './connectors';
 
 const resolveFunctions = {
     RootQuery: {
-        simulations(_, { id }){
+        simulation(_, { id }){
             let where = { id };
-            return Simulation.findAll({
-                /**/
+            return Simulation.findOne({
                 where: where,
-                /*
-                include: {
-                    Investor
-                }*/
+            });
+        },
+        getAllSimulations(_, {  }){
+            // let where = { id };
+            return Simulation.findAll({
             });
         },
     },
@@ -50,11 +50,21 @@ const resolveFunctions = {
                 return _simulation;
             });
         },
+        deleteSimulation: (root, { id }) => {
+            let where = { id };
+            return Simulation.destroy({where: where})
+                .then((numDestroyd) => {
+                    return numDestroyd === 1;
+                })
+        },
+        deleteAllSimulations: (root, args ) => {
+            return Simulation.destroy({where: {}})
+                .then((numDestroyed) => {
+                    return numDestroyed;
+                })
+        },
     },
     Company: {
-        /*shares(company){
-            return company.getShares();
-        },*/
         simulation(company){
             return company.getSimulation();
         },
@@ -71,9 +81,6 @@ const resolveFunctions = {
         },
     },
     Investor: {
-        /*shares(investor){
-            return investor.getShares();
-        },*/
         simulation(investor){
             return investor.getSimulation();
         }
