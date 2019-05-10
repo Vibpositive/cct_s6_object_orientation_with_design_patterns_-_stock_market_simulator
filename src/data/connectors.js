@@ -2,11 +2,11 @@ import Sequelize from 'sequelize';
 import casual from 'casual';
 import rp from 'request-promise';
 import _ from 'lodash';
+require('dotenv').config()
 
-const db = new Sequelize('stockmarket', null, null, {
-  dialect: 'sqlite',
-  storage: './stockmarket.sqlite'
-});
+const db = new Sequelize(
+  process.env.CLEARDB_DATABASE_URL
+);
 
 const CompanyModel = db.define('company', {
   id: {
