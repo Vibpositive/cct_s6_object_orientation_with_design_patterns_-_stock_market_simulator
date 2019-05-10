@@ -4,7 +4,7 @@ import Schema from './data/schema';
 // import Mocks from './data/mocks';
 import Resolvers from './data/resolvers';
 
-
+console.log(process.env.CLEARDB_DATABASE_URL);
 
 var graphQLServer = express();
 graphQLServer.use('/', apolloServer({
